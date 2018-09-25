@@ -1,0 +1,183 @@
+ MySQL  127.0.0.3:3306  SQL > show tables;
+ERROR: 1046 (3D000): No database selected
+
+ MySQL  127.0.0.3:3306  SQL > show tables
+                          ... ;
+ERROR: 1046 (3D000): No database selected
+
+ MySQL  127.0.0.3:3306  SQL > show databases;
++----------------------+
+| Database             |
++----------------------+
+| information_schema   |
+| banbajio             |
+| banbajiodosgruposres |
+| datos_coche          |
+| datoscoches          |
+| dbclientes           |
+| employees            |
+| evaluacion_1         |
+| inventario_          |
+| inventario_bdd       |
+| mysql                |
+| performance_schema   |
+| sakila               |
+| sys                  |
+| world                |
++----------------------+
+15 rows in set (0.0010 sec)
+
+ MySQL  127.0.0.3:3306  SQL > use evaluacion_1;
+Default schema set to `evaluacion_1`.
+Fetching table and column names from `evaluacion_1` for auto-completion... Press ^C to stop.
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > show tables
+                                        ... ;
++------------------------+
+| Tables_in_evaluacion_1 |
++------------------------+
+| carrera                |
+| estudiantes            |
+| horario                |
+| materias               |
+| nueva_carrera          |
+| nueva_carrererota      |
+| paises                 |
+| personal               |
+| personal2              |
++------------------------+
+9 rows in set (0.0008 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > desc paises;
++------------+----------------------------------------------------+------+-----+---------+----------------+
+| Field      | Type                                               | Null | Key | Default | Extra          |
++------------+----------------------------------------------------+------+-----+---------+----------------+
+| Clave      | int(11)                                            | NO   | PRI | NULL    | auto_increment |
+| Nombre     | varchar(50)                                        | NO   |     | NULL    |                |
+| Poblacion  | int(11)                                            | YES  |     | 10      |                |
+| Continente | enum('AFRICA','AMERICA','ASIA','OCEANIA','EUROPA') | YES  |     | NULL    |                |
++------------+----------------------------------------------------+------+-----+---------+----------------+
+4 rows in set (0.0006 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > create table Paises_2(
+                                        ... clave int not null primary key auto_increment,
+                                        ... nombre varchar(50) not null unique,
+                                        ... poblacion default 1,
+                                        ... continente enum('AFRICA', 'AMERICA', 'ASIA', 'OCEANIA', 'EUROPA'));
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'default 1,
+continente enum('AFRICA', 'AMERICA', 'ASIA', 'OCEANIA', 'EUROPA'))' at line 4
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > create table Paises_2( clave int not null primary key auto_increment, nombre varchar(50) not null unique, poblacion INT default 1, continente enum('AFRICA', 'AMERICA', 'ASIA', 'OCEANIA', 'EUROPA'));
+Query OK, 0 rows affected (0.0430 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > alter table paises change nombre varchar(50) not null unique;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar(50) not null unique' at line 1
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > alter table paises change Nombre Nombre varchar(50) not null unique;
+Query OK, 0 rows affected (0.0224 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > desc paises;
++------------+----------------------------------------------------+------+-----+---------+----------------+
+| Field      | Type                                               | Null | Key | Default | Extra          |
++------------+----------------------------------------------------+------+-----+---------+----------------+
+| Clave      | int(11)                                            | NO   | PRI | NULL    | auto_increment |
+| Nombre     | varchar(50)                                        | NO   | UNI | NULL    |                |
+| Poblacion  | int(11)                                            | YES  |     | 10      |                |
+| Continente | enum('AFRICA','AMERICA','ASIA','OCEANIA','EUROPA') | YES  |     | NULL    |                |
++------------+----------------------------------------------------+------+-----+---------+----------------+
+4 rows in set (0.0007 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > insert int paises (nombre, poblacion, continente)
+                                        ... values('Mexico', 1500000, 'AMERICA');
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'int paises (nombre, poblacion, continente)
+values('Mexico', 1500000, 'AMERICA')' at line 1
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > insert into paises (nombre, poblacion, continente) values('Mexico', 1500000, 'AMERICA');
+Query OK, 1 row affected (0.0057 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > insert into paises (nombre, poblacion, continente) values('Mexico', 1500000, 'AMERICA');
+ERROR: 1062 (23000): Duplicate entry 'Mexico' for key 'Nombre'
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > desc personal;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| Clave        | int(11)     | YES  |     | NULL    |       |
+| Nombre       | varchar(50) | YES  |     | NULL    |       |
+| Apellido     | varchar(50) | YES  |     | NULL    |       |
+| Departamento | varchar(50) | YES  |     | NULL    |       |
+| Salario      | float       | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.0008 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > alter table personal add RFC varchar(50) not null unique;
+ERROR: 1062 (23000): Duplicate entry '' for key 'RFC'
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > desc Nombre;
+ERROR: 1146 (42S02): Table 'evaluacion_1.nombre' doesn't exist
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > select * from nombre;
+ERROR: 1146 (42S02): Table 'evaluacion_1.nombre' doesn't exist
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > select * from personal;
++-------+---------+-----------+--------------+---------+
+| Clave | Nombre  | Apellido  | Departamento | Salario |
++-------+---------+-----------+--------------+---------+
+|    10 | Haziel  | NULL      | NULL         |    NULL |
+|    11 | Enrique | Hernandez | Sistemas     |   25000 |
+|    20 | Pedro   | NULL      | NULL         |    NULL |
+|     4 | Diana   | NULL      | NULL         |    NULL |
+|     5 | Edgar   | NULL      | NULL         |    NULL |
++-------+---------+-----------+--------------+---------+
+5 rows in set (0.0004 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > delete from personal;
+Query OK, 5 rows affected (0.0063 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > alter table personal add RFC varchar(50) not null unique;
+Query OK, 0 rows affected (0.0950 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > insert into personal (nombre, apellido, departamento, RFC)
+                                        ... values( 'Haziel', 'Hernandez', 'SISTEMAS', 'HEMH980521HCHZ01');
+Query OK, 1 row affected (0.0047 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > insert into personal (nombre, apellido, departamento, RFC) values( 'Haziel', 'Hernandez', 'SISTEMAS', 'HEMH980521HCHZ01');
+ERROR: 1062 (23000): Duplicate entry 'HEMH980521HCHZ01' for key 'RFC'
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > select * from personal;
++-------+--------+-----------+--------------+---------+------------------+
+| Clave | Nombre | Apellido  | Departamento | Salario | RFC              |
++-------+--------+-----------+--------------+---------+------------------+
+|  NULL | Haziel | Hernandez | SISTEMAS     |    NULL | HEMH980521HCHZ01 |
++-------+--------+-----------+--------------+---------+------------------+
+1 row in set (0.0006 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > create table Jobs(
+                                        ... Job_ID Int,
+                                        ... Job_Tittle Varchar(25),
+                                        ... Min_Salary int default 8000,
+                                        ... Max_Salary int)
+                                        ... ;
+Query OK, 0 rows affected (0.0507 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > alter table Jobs change Job_Tittle Job_Tittle varchar(25) default ' ';
+Query OK, 0 rows affected (0.0141 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > desc jobs;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| Job_ID     | int(11)     | YES  |     | NULL    |       |
+| Job_Tittle | varchar(25) | YES  |     |         |       |
+| Min_Salary | int(11)     | YES  |     | 8000    |       |
+| Max_Salary | int(11)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.0009 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL >

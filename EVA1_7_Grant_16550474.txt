@@ -1,0 +1,274 @@
+ MySQL  127.0.0.3:3306  SQL > \connect -c root@127.0.0.3
+The -c option is deprecated, please use --mysql or -mc instead
+Creating a Classic session to 'root@127.0.0.3'
+Please provide the password for 'root@127.0.0.3': *********
+Save password for 'root@127.0.0.3:3306'? [Y]es/[N]o/Ne[v]er (default No): y
+Fetching schema names for autocompletion... Press ^C to stop.
+Closing old connection...
+Your MySQL connection id is 3
+Server version: 5.7.21-log MySQL Community Server (GPL)
+No default schema selected; type \use <schema> to set one.
+
+ MySQL  127.0.0.3:3306  SQL > \connect -c root@localhost
+The -c option is deprecated, please use --mysql or -mc instead
+Creating a Classic session to 'root@localhost'
+Please provide the password for 'root@localhost': *********
+Save password for 'root@localhost:3306'? [Y]es/[N]o/Ne[v]er (default No): y
+Fetching schema names for autocompletion... Press ^C to stop.
+Closing old connection...
+Your MySQL connection id is 4
+Server version: 5.7.21-log MySQL Community Server (GPL)
+No default schema selected; type \use <schema> to set one.
+
+ MySQL  localhost:3306  SQL > show databases;
++----------------------+
+| Database             |
++----------------------+
+| information_schema   |
+| banbajio             |
+| banbajiodosgruposres |
+| datos_coche          |
+| datoscoches          |
+| dbclientes           |
+| employees            |
+| evaluacion_1         |
+| inventario_          |
+| inventario_bdd       |
+| mysql                |
+| performance_schema   |
+| sakila               |
+| sys                  |
+| world                |
++----------------------+
+15 rows in set (0.0038 sec)
+
+ MySQL  localhost:3306  SQL > use evaluacion_1;
+Default schema set to `evaluacion_1`.
+Fetching table and column names from `evaluacion_1` for auto-completion... Press ^C to stop.
+
+ MySQL  localhost:3306  evaluacion_1  SQL > show tables
+                                        ... ;
++------------------------+
+| Tables_in_evaluacion_1 |
++------------------------+
+| carrera                |
+| estudiantes            |
+| horario                |
+| jobs                   |
+| materias               |
+| nueva_carrera          |
+| nueva_carrererota      |
+| paises                 |
+| paises_2               |
+| personal               |
+| personal2              |
++------------------------+
+11 rows in set (0.0006 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > create user 'Menganito'@'localhost' identified by '12345';
+Query OK, 0 rows affected (0.0262 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > select user from mysql.user;
++---------------+
+| user          |
++---------------+
+| total_user    |
+| Haziel        |
+| Menganito     |
+| mysql.session |
+| mysql.sys     |
+| root          |
+| solo_select   |
+| solo_tabla    |
++---------------+
+8 rows in set (0.0035 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > grant select (nombre, Apellido_Paterno, Apellido_Materno, No_Control) on evaluacion_1.estudiantes to 'Menganito'@'localhost';
+Query OK, 0 rows affected (0.0009 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > desc materia;
+ERROR: 1146 (42S02): Table 'evaluacion_1.materia' doesn't exist
+
+ MySQL  localhost:3306  evaluacion_1  SQL > desc materias;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| nombre         | varchar(100) | YES  |     | NULL    |       |
+| creditos       | int(11)      | YES  |     | NULL    |       |
+| horas_teoricas | int(11)      | YES  |     | NULL    |       |
+| horas_practica | int(11)      | YES  |     | NULL    |       |
+| carrera        | varchar(3)   | YES  |     | NULL    |       |
+| semestre       | int(11)      | YES  |     | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+6 rows in set (0.0006 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > grant insert (nombre, creditos) on evualuacion_1.materias to 'Menganito'@'localhost';
+ERROR: 1146 (42S02): Table 'evualuacion_1.materias' doesn't exist
+
+ MySQL  localhost:3306  evaluacion_1  SQL > grant insert (nombre, creditos) on evuluacion_1.materias to 'Menganito'@'localhost';
+ERROR: 1146 (42S02): Table 'evuluacion_1.materias' doesn't exist
+
+ MySQL  localhost:3306  evaluacion_1  SQL > grant insert (nombre, creditos) on evaluacion_1.materias to 'Menganito'@'localhost';
+Query OK, 0 rows affected (0.0005 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > grant select (nombre) on evaluacion_1.materias to 'Menganito'@'localhost';
+Query OK, 0 rows affected (0.0006 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > desc carrera;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| nombre   | varchar(50) | YES  |     | NULL    |       |
+| Creditos | int(11)     | YES  |     | NULL    |       |
+| Semestre | int(11)     | YES  |     | NULL    |       |
+| Area     | varchar(50) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.0010 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > grant update (nombre, Creditos, Semestres, Area) on evaluacion_1.carrera to 'Mengnito'@'localhost';
+ERROR: 1054 (42S22): Unknown column 'Semestres' in 'carrera'
+
+ MySQL  localhost:3306  evaluacion_1  SQL > grant update (nombre, Creditos, Semestre, Area) on evaluacion_1.carrera to 'Mengnito'@'localhost';
+ERROR: 1133 (42000): Can't find any matching row in the user table
+
+ MySQL  localhost:3306  evaluacion_1  SQL > grant update (nombre, Creditos, Semestre, Area) on evaluacion_1.carrera to 'Menganito'@'localhost';
+Query OK, 0 rows affected (0.0005 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > grant insert (nombre, Creditos, Semestre, Area) on evaluacion_1.carrera to 'Menganito'@'localhost';
+Query OK, 0 rows affected (0.0004 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > grant select on evaluacion_1.paises to 'Menganito'@'localhost';
+Query OK, 0 rows affected (0.0006 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > desc personal;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| Clave        | int(11)     | YES  |     | NULL    |       |
+| Nombre       | varchar(50) | YES  |     | NULL    |       |
+| Apellido     | varchar(50) | YES  |     | NULL    |       |
+| Departamento | varchar(50) | YES  |     | NULL    |       |
+| Salario      | float       | YES  |     | NULL    |       |
+| RFC          | varchar(50) | NO   | PRI | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+6 rows in set (0.0008 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > grant drop on evaluacion_1.personal to 'Menganito'@'localhost';
+Query OK, 0 rows affected (0.0006 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > \connect -c Menganito@localhost;
+The -c option is deprecated, please use --mysql or -mc instead
+Creating a Classic session to 'Menganito@localhost;'
+Please provide the password for 'Menganito@localhost;': *****
+MySQL Error 2005 (HY000): Unknown MySQL server host 'localhost;' (0)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > \connect -c Menganito@localhost;
+The -c option is deprecated, please use --mysql or -mc instead
+Creating a Classic session to 'Menganito@localhost;'
+Please provide the password for 'Menganito@localhost;': ****
+MySQL Error 2005 (HY000): Unknown MySQL server host 'localhost;' (0)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > \connect -mc Menganito@localhost;
+Creating a Classic session to 'Menganito@localhost;'
+Please provide the password for 'Menganito@localhost;': *****
+MySQL Error 2005 (HY000): Unknown MySQL server host 'localhost;' (0)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > \connect -c root@localhost;
+The -c option is deprecated, please use --mysql or -mc instead
+Creating a Classic session to 'root@localhost;'
+Please provide the password for 'root@localhost;': *********
+MySQL Error 2005 (HY000): Unknown MySQL server host 'localhost;' (0)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > \connect -c root@127.0.0.3;
+The -c option is deprecated, please use --mysql or -mc instead
+Invalid URI: Illegal character [;] found at position 14
+
+ MySQL  localhost:3306  evaluacion_1  SQL > \connect -c root@localhost
+The -c option is deprecated, please use --mysql or -mc instead
+Creating a Classic session to 'root@localhost'
+Please provide the password for 'root@localhost': *********
+Save password for 'root@localhost:3306'? [Y]es/[N]o/Ne[v]er (default No): y
+Fetching schema names for autocompletion... Press ^C to stop.
+Closing old connection...
+Your MySQL connection id is 7
+Server version: 5.7.21-log MySQL Community Server (GPL)
+No default schema selected; type \use <schema> to set one.
+
+ MySQL  localhost:3306  SQL > \connect -c Menganito@localhost
+The -c option is deprecated, please use --mysql or -mc instead
+Creating a Classic session to 'Menganito@localhost'
+Please provide the password for 'Menganito@localhost': *****
+Save password for 'Menganito@localhost:3306'? [Y]es/[N]o/Ne[v]er (default No): y
+Fetching schema names for autocompletion... Press ^C to stop.
+Closing old connection...
+Your MySQL connection id is 8
+Server version: 5.7.21-log MySQL Community Server (GPL)
+No default schema selected; type \use <schema> to set one.
+
+ MySQL  localhost:3306  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| evaluacion_1       |
++--------------------+
+2 rows in set (0.0044 sec)
+
+ MySQL  localhost:3306  SQL > use evaluacion_1;
+Default schema set to `evaluacion_1`.
+Fetching table and column names from `evaluacion_1` for auto-completion... Press ^C to stop.
+
+ MySQL  localhost:3306  evaluacion_1  SQL > show tables;
++------------------------+
+| Tables_in_evaluacion_1 |
++------------------------+
+| carrera                |
+| estudiantes            |
+| materias               |
+| paises                 |
+| personal               |
++------------------------+
+5 rows in set (0.0008 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > desc materias;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| nombre   | varchar(100) | YES  |     | NULL    |       |
+| creditos | int(11)      | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+2 rows in set (0.0008 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > desc carrera;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| nombre   | varchar(50) | YES  |     | NULL    |       |
+| Creditos | int(11)     | YES  |     | NULL    |       |
+| Semestre | int(11)     | YES  |     | NULL    |       |
+| Area     | varchar(50) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.0006 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > desc materias;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| nombre   | varchar(100) | YES  |     | NULL    |       |
+| creditos | int(11)      | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+2 rows in set (0.0008 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > select * from materias;
+ERROR: 1142 (42000): SELECT command denied to user 'Menganito'@'localhost' for table 'materias'
+
+ MySQL  localhost:3306  evaluacion_1  SQL > select  from materias;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from materias' at line 1
+
+ MySQL  localhost:3306  evaluacion_1  SQL > select nombre from materias;
+Empty set (0.0112 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > select creditos from materias;
+ERROR: 1143 (42000): SELECT command denied to user 'Menganito'@'localhost' for column 'creditos' in table 'materias'
+
+ MySQL  localhost:3306  evaluacion_1  SQL >

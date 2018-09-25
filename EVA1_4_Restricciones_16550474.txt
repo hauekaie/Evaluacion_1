@@ -1,0 +1,258 @@
+Tabla paises del mundo
+	Clave
+	Nombre not null
+	Poblacion default 1
+	Continente --> 'Africa', 'Asia', 'America', 'Oceania', 'Europa'
+
+
+
+
+ MySQL  127.0.0.3:3306  SQL > show databases;
++----------------------+
+| Database             |
++----------------------+
+| information_schema   |
+| banbajio             |
+| banbajiodosgruposres |
+| datos_coche          |
+| datoscoches          |
+| dbclientes           |
+| employees            |
+| evaluacion_1         |
+| inventario_          |
+| inventario_bdd       |
+| mysql                |
+| performance_schema   |
+| sakila               |
+| sys                  |
+| world                |
++----------------------+
+15 rows in set (0.0036 sec)
+
+ MySQL  127.0.0.3:3306  SQL > \use evaluacion_1;
+MySQL Error 1049 (42000): ClassicSession.runSql: Unknown database 'evaluacion_1;'
+
+ MySQL  127.0.0.3:3306  SQL > \use evaluacion_1
+Default schema set to `evaluacion_1`.
+Fetching table and column names from `evaluacion_1` for auto-completion... Press ^C to stop.
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > show tables
+                                        ... ;
++------------------------+
+| Tables_in_evaluacion_1 |
++------------------------+
+| carrera                |
+| estudiantes            |
+| horario                |
+| materias               |
+| nueva_carrera          |
+| nueva_carrererota      |
++------------------------+
+6 rows in set (0.0008 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > create table Personal(
+                                        ... Clave int,
+                                        ... Nombre Varchar(50),
+                                        ... Apellido varchar(50),
+                                        ... Departamento varchar(50),
+                                        ... Salario float);
+Query OK, 0 rows affected (0.0539 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > desc personal;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| Clave        | int(11)     | YES  |     | NULL    |       |
+| Nombre       | varchar(50) | YES  |     | NULL    |       |
+| Apellido     | varchar(50) | YES  |     | NULL    |       |
+| Departamento | varchar(50) | YES  |     | NULL    |       |
+| Salario      | float       | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.0020 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > insert into personal(Clave, Nombre) values(10, 'Haziel');
+Query OK, 1 row affected (0.0062 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > desc personal;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| Clave        | int(11)     | YES  |     | NULL    |       |
+| Nombre       | varchar(50) | YES  |     | NULL    |       |
+| Apellido     | varchar(50) | YES  |     | NULL    |       |
+| Departamento | varchar(50) | YES  |     | NULL    |       |
+| Salario      | float       | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.0008 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > insert into personal values(11, 'Enrique', 'Hernandez', Sistemas, 25000);
+ERROR: 1054 (42S22): Unknown column 'Sistemas' in 'field list'
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL >
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL >
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > insert into personal values(11, 'Enrique', 'Hernandez', ''Sistemas', 25000); MySQL  127.0.0.3:3306  evaluacion_1  SQL > insert into personal values(11, 'Enrique', 'Hernandez', 'Sistemas', 25000);
+Query OK, 1 row affected (0.0045 sec)
+                                           
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > insert into personal(Clave, Nombre) values(20, 'Pedro'), (4, 'Diana'),(5, );Query OK, 3 rows affected (0.0045 sec)
+
+Records: 3  Duplicates: 0  Warnings: 0
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > select * from personal;
++-------+---------+-----------+--------------+---------+
+| Clave | Nombre  | Apellido  | Departamento | Salario |
++-------+---------+-----------+--------------+---------+
+|    10 | Haziel  | NULL      | NULL         |    NULL |
+|    11 | Enrique | Hernandez | Sistemas     |   25000 |
+|    20 | Pedro   | NULL      | NULL         |    NULL |
+|     4 | Diana   | NULL      | NULL         |    NULL |
+|     5 | Edgar   | NULL      | NULL         |    NULL |
++-------+---------+-----------+--------------+---------+
+5 rows in set (0.0038 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > desc personal;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| Clave        | int(11)     | YES  |     | NULL    |       |
+| Nombre       | varchar(50) | YES  |     | NULL    |       |
+| Apellido     | varchar(50) | YES  |     | NULL    |       |
+| Departamento | varchar(50) | YES  |     | NULL    |       |
+| Salario      | float       | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.0009 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > create table Personal2(
+                                        ... Clave int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+                                        ... Nombre Varchar(50) not null,
+                                        ... Apellido Varchar(50) not null,
+                                        ... Departamento enum('SISTEMAS', 'CONTABILIDAD', 'INHUMANOS', 'PRODUCCION'),
+                                        ... Salario float default 15000);
+Query OK, 0 rows affected (0.0484 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > desc personal2;
++--------------+----------------------------------------------------------+------+-----+---------+----------------+
+| Field        | Type                                                     | Null | Key | Default | Extra          |
++--------------+----------------------------------------------------------+------+-----+---------+----------------+
+| Clave        | int(11)                                                  | NO   | PRI | NULL    | auto_increment |
+| Nombre       | varchar(50)                                              | NO   |     | NULL    |                |
+| Apellido     | varchar(50)                                              | NO   |     | NULL    |                |
+| Departamento | enum('SISTEMAS','CONTABILIDAD','INHUMANOS','PRODUCCION') | YES  |     | NULL    |                |
+| Salario      | float                                                    | YES  |     | 15000   |                |
++--------------+----------------------------------------------------------+------+-----+---------+----------------+
+5 rows in set (0.0018 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > insert into personal2 (nombre, apellido) values ('Haziel', 'Hernandez');
+Query OK, 1 row affected (0.0045 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > desc personal2;
++--------------+----------------------------------------------------------+------+-----+---------+----------------+
+| Field        | Type                                                     | Null | Key | Default | Extra          |
++--------------+----------------------------------------------------------+------+-----+---------+----------------+
+| Clave        | int(11)                                                  | NO   | PRI | NULL    | auto_increment |
+| Nombre       | varchar(50)                                              | NO   |     | NULL    |                |
+| Apellido     | varchar(50)                                              | NO   |     | NULL    |                |
+| Departamento | enum('SISTEMAS','CONTABILIDAD','INHUMANOS','PRODUCCION') | YES  |     | NULL    |                |
+| Salario      | float                                                    | YES  |     | 15000   |                |
++--------------+----------------------------------------------------------+------+-----+---------+----------------+
+5 rows in set (0.0006 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > select * from personal2;
++-------+--------+-----------+--------------+---------+
+| Clave | Nombre | Apellido  | Departamento | Salario |
++-------+--------+-----------+--------------+---------+
+|     1 | Haziel | Hernandez | NULL         |   15000 |
++-------+--------+-----------+--------------+---------+
+1 row in set (0.0003 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > insert into personal2 (nombre, apellido, departamento)
+                                        ... values('Enrique', 'Melendez', 'SISTEMAS');
+Query OK, 1 row affected (0.0072 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > select * from personal2;
++-------+---------+-----------+--------------+---------+
+| Clave | Nombre  | Apellido  | Departamento | Salario |
++-------+---------+-----------+--------------+---------+
+|     1 | Haziel  | Hernandez | NULL         |   15000 |
+|     2 | Enrique | Melendez  | SISTEMAS     |   15000 |
++-------+---------+-----------+--------------+---------+
+2 rows in set (0.0004 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > insert into personal2 (nombre, apellido, departamento, salario) values ('Pablito', 'Leon', 'Y', 16550);
+ERROR: 1265 (01000): Data truncated for column 'Departamento' at row 1
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > insert into personal2 (nombre, apellido, departamento, salario) values ('Pablito', 'Leon', 'CONTABILIDAD', 16550);
+Query OK, 1 row affected (0.0044 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > select * from personal2;
++-------+---------+-----------+--------------+---------+
+| Clave | Nombre  | Apellido  | Departamento | Salario |
++-------+---------+-----------+--------------+---------+
+|     1 | Haziel  | Hernandez | NULL         |   15000 |
+|     2 | Enrique | Melendez  | SISTEMAS     |   15000 |
+|     3 | Pablito | Leon      | CONTABILIDAD |   16550 |
++-------+---------+-----------+--------------+---------+
+3 rows in set (0.0004 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > inset into personal2 (clave, nombre, apellido) values (3, '', '');
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'inset into personal2 (clave, nombre, apellido) values (3, '', '')' at line 1
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > insert into personal2 (clave, nombre, apellido) values (3, '', '');
+ERROR: 1062 (23000): Duplicate entry '3' for key 'PRIMARY'
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > insert into personal2 (clave, nombre, apellido) values (5, '', '');
+Query OK, 1 row affected (0.0047 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > select * from personal2;
++-------+---------+-----------+--------------+---------+
+| Clave | Nombre  | Apellido  | Departamento | Salario |
++-------+---------+-----------+--------------+---------+
+|     1 | Haziel  | Hernandez | NULL         |   15000 |
+|     2 | Enrique | Melendez  | SISTEMAS     |   15000 |
+|     3 | Pablito | Leon      | CONTABILIDAD |   16550 |
+|     5 |         |           | NULL         |   15000 |
++-------+---------+-----------+--------------+---------+
+4 rows in set (0.0005 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > create table Paises(
+                                        ... Clave int PRIMARY_KEY NOT NULL AUTO_INCREMENT,
+                                        ... Nombre varchar(50) not null,
+                                        ... Poblacion int default 10,
+                                        ... Continente enum('AFRICA', 'AMERICA', 'ASIA', 'OCEANIA', 'EUROPA');
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PRIMARY_KEY NOT NULL AUTO_INCREMENT,
+Nombre varchar(50) not null,
+Poblacion int ' at line 2
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > create table Paises( Clave int PRIMARY KEY NOT NULL AUTO_INCREMENT, Nombre varchar(50) not null, Poblacion int default 10, Continente enum('AFRICA', 'AMERICA', 'ASIA', 'OCEANIA', 'EUROPA');
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > create table Paises( Clave int PRIMARY KEY NOT NULL AUTO_INCREMENT, Nombre varchar(50) not null, Poblacion int default 10, Continente enum('AFRICA', 'AMERICA', 'ASIA', 'OCEANIA', 'EUROPA'));
+Query OK, 0 rows affected (0.0486 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > show tables;
++------------------------+
+| Tables_in_evaluacion_1 |
++------------------------+
+| carrera                |
+| estudiantes            |
+| horario                |
+| materias               |
+| nueva_carrera          |
+| nueva_carrererota      |
+| paises                 |
+| personal               |
+| personal2              |
++------------------------+
+9 rows in set (0.0007 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > desc paises;
++------------+----------------------------------------------------+------+-----+---------+----------------+
+| Field      | Type                                               | Null | Key | Default | Extra          |
++------------+----------------------------------------------------+------+-----+---------+----------------+
+| Clave      | int(11)                                            | NO   | PRI | NULL    | auto_increment |
+| Nombre     | varchar(50)                                        | NO   |     | NULL    |                |
+| Poblacion  | int(11)                                            | YES  |     | 10      |                |
+| Continente | enum('AFRICA','AMERICA','ASIA','OCEANIA','EUROPA') | YES  |     | NULL    |                |
++------------+----------------------------------------------------+------+-----+---------+----------------+
+4 rows in set (0.0020 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL >

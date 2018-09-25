@@ -1,0 +1,354 @@
+Tabla Horario:
+	materia texto
+	salon texto
+	profesor texto
+	hora time
+	dia date
+	no_Control texto
+	carrera text
+---------------------------
+	Agregar Creditos
+	Modificar no_control a texto(20)
+	agregar semestre_actual
+
+
+
+ MySQL  127.0.0.3:3306  SQL > show databases;
++----------------------+
+| Database             |
++----------------------+
+| information_schema   |
+| banbajio             |
+| banbajiodosgruposres |
+| datos_coche          |
+| datoscoches          |
+| dbclientes           |
+| employees            |
+| evaluacion_1         |
+| inventario_          |
+| inventario_bdd       |
+| mysql                |
+| performance_schema   |
+| sakila               |
+| sys                  |
+| world                |
++----------------------+
+15 rows in set (0.0010 sec)
+
+ MySQL  127.0.0.3:3306  SQL > use evaluacion_1;
+Default schema set to `evaluacion_1`.
+Fetching table and column names from `evaluacion_1` for auto-completion... Press ^C to stop.
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > show tables
+                                        ... ;
++------------------------+
+| Tables_in_evaluacion_1 |
++------------------------+
+| estudiantes            |
+| materias               |
++------------------------+
+2 rows in set (0.0005 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > ;
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > desc estudiantes;
++------------------+--------------+------+-----+---------+-------+
+| Field            | Type         | Null | Key | Default | Extra |
++------------------+--------------+------+-----+---------+-------+
+| No_control       | varchar(10)  | YES  |     | NULL    |       |
+| nombre           | varchar(50)  | YES  |     | NULL    |       |
+| Apellido_Paterno | varchar(50)  | YES  |     | NULL    |       |
+| Apellido_Materno | varchar(50)  | YES  |     | NULL    |       |
+| Direccion        | varchar(100) | YES  |     | NULL    |       |
+| Fecha_Nacimiento | date         | YES  |     | NULL    |       |
+| Lugar_Nacimiento | varchar(100) | YES  |     | NULL    |       |
+| Pais_Nacimiento  | varchar(100) | YES  |     | NULL    |       |
+| Genero           | varchar(50)  | YES  |     | NULL    |       |
+| No_Telefono      | varchar(50)  | YES  |     | NULL    |       |
++------------------+--------------+------+-----+---------+-------+
+10 rows in set (0.0009 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > create table carrera(
+                                        ... nombre int.
+                                        ... ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.' at line 2
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > create table carrera( nombre int,
+                                        ... creditos varchar(50),
+                                        ... cemeztre int,
+                                        ... email varchar(50));
+Query OK, 0 rows affected (0.0364 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > desc carrera
+                                        ... ;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| nombre   | int(11)     | YES  |     | NULL    |       |
+| creditos | varchar(50) | YES  |     | NULL    |       |
+| cemeztre | int(11)     | YES  |     | NULL    |       |
+| email    | varchar(50) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.0018 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > alter table carrera modify nombre varchar(50);
+Query OK, 0 rows affected (0.0941 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > desc carrera ;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| nombre   | varchar(50) | YES  |     | NULL    |       |
+| creditos | varchar(50) | YES  |     | NULL    |       |
+| cemeztre | int(11)     | YES  |     | NULL    |       |
+| email    | varchar(50) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.0021 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > alter table carrera change creditos Creditos int;
+Query OK, 0 rows affected (0.0830 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > desc carrera ;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| nombre   | varchar(50) | YES  |     | NULL    |       |
+| Creditos | int(11)     | YES  |     | NULL    |       |
+| cemeztre | int(11)     | YES  |     | NULL    |       |
+| email    | varchar(50) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.0067 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > alter table carrera rename cemeztre Semestre;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Semestre' at line 1
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > alter table carrera rename column cemeztre to Semestre;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'column cemeztre to Semestre' at line 1
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > alter table carrera rename column cemeztre to Semestre;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'column cemeztre to Semestre' at line 1
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > select version();
++------------+
+| version()  |
++------------+
+| 5.7.21-log |
++------------+
+1 row in set (0.0032 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > alter table carrera change cemeztre Semestre int;
+Query OK, 0 rows affected (0.0161 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > desc carrera;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| nombre   | varchar(50) | YES  |     | NULL    |       |
+| Creditos | int(11)     | YES  |     | NULL    |       |
+| Semestre | int(11)     | YES  |     | NULL    |       |
+| email    | varchar(50) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.0009 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > alter table carrera drop email;
+Query OK, 0 rows affected (0.0578 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > desc carrera;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| nombre   | varchar(50) | YES  |     | NULL    |       |
+| Creditos | int(11)     | YES  |     | NULL    |       |
+| Semestre | int(11)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.0008 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > alter table carrera add column Area varchar(50);
+Query OK, 0 rows affected (0.1074 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > desc carrera;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| nombre   | varchar(50) | YES  |     | NULL    |       |
+| Creditos | int(11)     | YES  |     | NULL    |       |
+| Semestre | int(11)     | YES  |     | NULL    |       |
+| Area     | varchar(50) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.0007 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > insert into carrera values('Sistemas', 500, 9, 'Sistemas y Computacion');
+Query OK, 1 row affected (0.0055 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > insert into carrera values('Sistemas', 500, 9, 'Sistemas y Computacion');
+Query OK, 1 row affected (0.0049 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > insert into carrera values('Sistemas', 500, 9, 'Sistemas y Computacion');
+Query OK, 1 row affected (0.0043 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > select * from carrera;
++----------+----------+----------+------------------------+
+| nombre   | Creditos | Semestre | Area                   |
++----------+----------+----------+------------------------+
+| Sistemas |      500 |        9 | Sistemas y Computacion |
+| Sistemas |      500 |        9 | Sistemas y Computacion |
+| Sistemas |      500 |        9 | Sistemas y Computacion |
++----------+----------+----------+------------------------+
+3 rows in set (0.0004 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > create table Nueva_Carrera as select * from carrera;
+Query OK, 3 rows affected (0.0481 sec)
+
+Records: 3  Duplicates: 0  Warnings: 0
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > desc Nueva_Carrera;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| nombre   | varchar(50) | YES  |     | NULL    |       |
+| Creditos | int(11)     | YES  |     | NULL    |       |
+| Semestre | int(11)     | YES  |     | NULL    |       |
+| Area     | varchar(50) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.0008 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > select * from nueva_carrera;
++----------+----------+----------+------------------------+
+| nombre   | Creditos | Semestre | Area                   |
++----------+----------+----------+------------------------+
+| Sistemas |      500 |        9 | Sistemas y Computacion |
+| Sistemas |      500 |        9 | Sistemas y Computacion |
+| Sistemas |      500 |        9 | Sistemas y Computacion |
++----------+----------+----------+------------------------+
+3 rows in set (0.0003 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > create table Nueva_Carrererota like carrera;
+Query OK, 0 rows affected (0.0436 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > desc Nueva_Carrererota;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| nombre   | varchar(50) | YES  |     | NULL    |       |
+| Creditos | int(11)     | YES  |     | NULL    |       |
+| Semestre | int(11)     | YES  |     | NULL    |       |
+| Area     | varchar(50) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.0019 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > select * from nueva_carrerota
+                                        ... ;
+ERROR: 1146 (42S02): Table 'evaluacion_1.nueva_carrerota' doesn't exist
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > select * from nueva_carrererota ;
+Empty set (0.0005 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > show tables;
++------------------------+
+| Tables_in_evaluacion_1 |
++------------------------+
+| carrera                |
+| estudiantes            |
+| materias               |
+| nueva_carrera          |
+| nueva_carrererota      |
++------------------------+
+5 rows in set (0.0007 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > create table Horario(
+                                        ... Materia varchar(50),
+                                        ... Salon Varchar(20),
+                                        ... Profesor Varchar(50),
+                                        ... Hora time,
+                                        ... dia date,
+                                        ... No_Control varchar(10),
+                                        ... Carrera Varchar(20));
+Query OK, 0 rows affected (0.0496 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > show tables;
++------------------------+
+| Tables_in_evaluacion_1 |
++------------------------+
+| carrera                |
+| estudiantes            |
+| horario                |
+| materias               |
+| nueva_carrera          |
+| nueva_carrererota      |
++------------------------+
+6 rows in set (0.0007 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > alter table horario add column Creditos int;
+Query OK, 0 rows affected (0.0801 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > select * from horario;
+Empty set (0.0004 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > desc horario;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| Materia    | varchar(50) | YES  |     | NULL    |       |
+| Salon      | varchar(20) | YES  |     | NULL    |       |
+| Profesor   | varchar(50) | YES  |     | NULL    |       |
+| Hora       | time        | YES  |     | NULL    |       |
+| dia        | date        | YES  |     | NULL    |       |
+| No_Control | varchar(10) | YES  |     | NULL    |       |
+| Carrera    | varchar(20) | YES  |     | NULL    |       |
+| Creditos   | int(11)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+8 rows in set (0.0012 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > alter table horario change no_control No_Control varchar(20);
+Query OK, 0 rows affected (0.0188 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > desc horario;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| Materia    | varchar(50) | YES  |     | NULL    |       |
+| Salon      | varchar(20) | YES  |     | NULL    |       |
+| Profesor   | varchar(50) | YES  |     | NULL    |       |
+| Hora       | time        | YES  |     | NULL    |       |
+| dia        | date        | YES  |     | NULL    |       |
+| No_Control | varchar(20) | YES  |     | NULL    |       |
+| Carrera    | varchar(20) | YES  |     | NULL    |       |
+| Creditos   | int(11)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+8 rows in set (0.0005 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > alter table horario add column Semestre_Actual int;
+Query OK, 0 rows affected (0.0666 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL > desc horario;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| Materia         | varchar(50) | YES  |     | NULL    |       |
+| Salon           | varchar(20) | YES  |     | NULL    |       |
+| Profesor        | varchar(50) | YES  |     | NULL    |       |
+| Hora            | time        | YES  |     | NULL    |       |
+| dia             | date        | YES  |     | NULL    |       |
+| No_Control      | varchar(20) | YES  |     | NULL    |       |
+| Carrera         | varchar(20) | YES  |     | NULL    |       |
+| Creditos        | int(11)     | YES  |     | NULL    |       |
+| Semestre_Actual | int(11)     | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+9 rows in set (0.0005 sec)
+
+ MySQL  127.0.0.3:3306  evaluacion_1  SQL >

@@ -1,0 +1,268 @@
+
+
+
+ MySQL  localhost:3306  SQL > show tables;
+ERROR: 1046 (3D000): No database selected
+
+ MySQL  localhost:3306  SQL > show databases;
++----------------------+
+| Database             |
++----------------------+
+| information_schema   |
+| banbajio             |
+| banbajiodosgruposres |
+| datos_coche          |
+| datoscoches          |
+| dbclientes           |
+| employees            |
+| evaluacion_1         |
+| inventario_          |
+| inventario_bdd       |
+| mysql                |
+| performance_schema   |
+| sakila               |
+| sys                  |
+| world                |
++----------------------+
+15 rows in set (0.0011 sec)
+
+ MySQL  localhost:3306  SQL > create table factura(
+                          ... No_Factura int auto_increment primary key,
+                          ... Fecha_Compra datetime,
+                          ... ;
+ERROR: 1046 (3D000): No database selected
+
+ MySQL  localhost:3306  SQL > create table cliente(
+                          ... no_cliente int auto_increment primary key,
+                          ... nombre varchar(50),
+                          ... apellido varchar(50),
+                          ... RFC varchar(13),
+                          ... direccion varchar(100),
+                          ... numero_tel varchar(50),
+                          ... numero_cel varchar(50));
+ERROR: 1046 (3D000): No database selected
+
+ MySQL  localhost:3306  SQL > use evaluacion_1;
+Default schema set to `evaluacion_1`.
+Fetching table and column names from `evaluacion_1` for auto-completion... Press ^C to stop.
+
+ MySQL  localhost:3306  evaluacion_1  SQL > create table cliente( no_cliente int auto_increment primary key, nombre varchar(50), apellido varchar(50), RFC varchar(13), direccion varchar(100), numero_tel varchar(50), numero_cel varchar(50));
+Query OK, 0 rows affected (0.0475 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > desc cliente
+                                        ... ;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| no_cliente | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nombre     | varchar(50)  | YES  |     | NULL    |                |
+| apellido   | varchar(50)  | YES  |     | NULL    |                |
+| RFC        | varchar(13)  | YES  |     | NULL    |                |
+| direccion  | varchar(100) | YES  |     | NULL    |                |
+| numero_tel | varchar(50)  | YES  |     | NULL    |                |
+| numero_cel | varchar(50)  | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+7 rows in set (0.0019 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > create table productos(
+                                        ... no_producto int auto_increment primary key,
+                                        ... nombre varchar(50),
+                                        ... precion float);
+Query OK, 0 rows affected (0.0350 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > create table factura( No_Factura int auto_increment primary key, Fecha_Compra datetime,
+                                        ... no_cliente int,
+                                        ... REFERENCE cliente(no_cliente) on delete RESTRICT on update CASCADE);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'cliente(no_cliente) on delete RESTRICT on update CASCADE)' at line 3
+
+ MySQL  localhost:3306  evaluacion_1  SQL > create table factura( No_Factura int auto_increment primary key, Fecha_Compra datetime,  no_cliente int REFERENCE cliente(no_cliente) on delete RESTRICT on update CASCADE);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'REFERENCE cliente(no_cliente) on delete RESTRICT on update CASCADE)' at line 1
+
+ MySQL  localhost:3306  evaluacion_1  SQL > create table factura( No_Factura int auto_increment primary key, Fecha_Compra datetime,  no_cliente int REFERENCE cliente(no_cliente) on delete restrict on update cascade);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'REFERENCE cliente(no_cliente) on delete restrict on update cascade)' at line 1
+
+ MySQL  localhost:3306  evaluacion_1  SQL > create table factura( No_Factura int auto_increment primary key, Fecha_Compra datetime,
+                                        ... no_cliente int REFERENCES cliente(no_cliente) on delete restrict on update cascade);
+Query OK, 0 rows affected (0.0340 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > inser into cliente(nombre, apellido) values ('jose', 'Perez');
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'inser into cliente(nombre, apellido) values ('jose', 'Perez')' at line 1
+
+ MySQL  localhost:3306  evaluacion_1  SQL > insert into cliente(nombre, apellido) values ('jose', 'Perez');
+Query OK, 1 row affected (0.0048 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > select * from cliente;
++------------+--------+----------+------+-----------+------------+------------+
+| no_cliente | nombre | apellido | RFC  | direccion | numero_tel | numero_cel |
++------------+--------+----------+------+-----------+------------+------------+
+|          1 | jose   | Perez    | NULL | NULL      | NULL       | NULL       |
++------------+--------+----------+------+-----------+------------+------------+
+1 row in set (0.0032 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > insert into factura(fechar_compra, no_cliente) values('2018-09-12', 2);
+ERROR: 1054 (42S22): Unknown column 'fechar_compra' in 'field list'
+
+ MySQL  localhost:3306  evaluacion_1  SQL > insert into factura(fecha_compra, no_cliente) values('2018-09-12', 2);
+Query OK, 1 row affected (0.0043 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > select * from factura;
++------------+---------------------+------------+
+| No_Factura | Fecha_Compra        | no_cliente |
++------------+---------------------+------------+
+|          1 | 2018-09-12 00:00:00 |          2 |
++------------+---------------------+------------+
+1 row in set (0.0003 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > desc cliente;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| no_cliente | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nombre     | varchar(50)  | YES  |     | NULL    |                |
+| apellido   | varchar(50)  | YES  |     | NULL    |                |
+| RFC        | varchar(13)  | YES  |     | NULL    |                |
+| direccion  | varchar(100) | YES  |     | NULL    |                |
+| numero_tel | varchar(50)  | YES  |     | NULL    |                |
+| numero_cel | varchar(50)  | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+7 rows in set (0.0006 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > update cliente
+                                        ... set
+                                        ... no_cliente = 5
+                                        ... where no_cliente = 1;
+Query OK, 1 row affected (0.0075 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+
+ MySQL  localhost:3306  evaluacion_1  SQL > select * from cliente;
++------------+--------+----------+------+-----------+------------+------------+
+| no_cliente | nombre | apellido | RFC  | direccion | numero_tel | numero_cel |
++------------+--------+----------+------+-----------+------------+------------+
+|          5 | jose   | Perez    | NULL | NULL      | NULL       | NULL       |
++------------+--------+----------+------+-----------+------------+------------+
+1 row in set (0.0003 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > select * from factura;
++------------+---------------------+------------+
+| No_Factura | Fecha_Compra        | no_cliente |
++------------+---------------------+------------+
+|          1 | 2018-09-12 00:00:00 |          2 |
++------------+---------------------+------------+
+1 row in set (0.0003 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > insert into factura(fechar_compra, no_cliente) values('2018-09-12', 1);
+ERROR: 1054 (42S22): Unknown column 'fechar_compra' in 'field list'
+
+ MySQL  localhost:3306  evaluacion_1  SQL > insert into factura(fecha_compra, no_cliente) values('2018-09-12', 1);
+Query OK, 1 row affected (0.0058 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > select * from factura;
++------------+---------------------+------------+
+| No_Factura | Fecha_Compra        | no_cliente |
++------------+---------------------+------------+
+|          1 | 2018-09-12 00:00:00 |          2 |
+|          2 | 2018-09-12 00:00:00 |          1 |
++------------+---------------------+------------+
+2 rows in set (0.0003 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > alter table factura(
+                                        ... add constraint foreign key (no_cliente)
+                                        ... reference cliente(no_cliente) on delete restrict on update cascade);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(
+add constraint foreign key (no_cliente)
+reference cliente(no_cliente) on delet' at line 1
+
+ MySQL  localhost:3306  evaluacion_1  SQL > delete from factura;
+Query OK, 2 rows affected (0.0030 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > select * from factura;
+Empty set (0.0004 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > alter table factura( add constraint foreign key (no_cliente) reference cliente(no_cliente) on delete restrict on update cascade);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '( add constraint foreign key (no_cliente) reference cliente(no_cliente) on delet' at line 1
+
+ MySQL  localhost:3306  evaluacion_1  SQL > alter table factura add constraint foreign key (no_cliente) reference cliente(no_cliente) on delete restrict on update cascade;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'reference cliente(no_cliente) on delete restrict on update cascade' at line 1
+
+ MySQL  localhost:3306  evaluacion_1  SQL > alter table factura
+                                        ... add contraint foreign key (no_cliente)
+                                        ... references cliente(no_cliente) on delete restrict on update cascade;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key (no_cliente)
+references cliente(no_cliente) on delete restrict on up' at line 2
+
+ MySQL  localhost:3306  evaluacion_1  SQL > alter table factura add constraint foreign key (no_cliente) references cliente(no_cliente) on delete restrict on update cascade;
+Query OK, 0 rows affected (0.0848 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3306  evaluacion_1  SQL > desc factura;
++--------------+----------+------+-----+---------+----------------+
+| Field        | Type     | Null | Key | Default | Extra          |
++--------------+----------+------+-----+---------+----------------+
+| No_Factura   | int(11)  | NO   | PRI | NULL    | auto_increment |
+| Fecha_Compra | datetime | YES  |     | NULL    |                |
+| no_cliente   | int(11)  | YES  | MUL | NULL    |                |
++--------------+----------+------+-----+---------+----------------+
+3 rows in set (0.0021 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > insert into factura(fecha_compra, no_cliente)
+                                        ... values('2018-09-11', 5);
+Query OK, 1 row affected (0.0039 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > update cliente
+                                        ... set
+                                        ... no_cliente = 3
+                                        ... where no_cliente = 1;
+Query OK, 0 rows affected (0.0003 sec)
+
+Rows matched: 0  Changed: 0  Warnings: 0
+
+ MySQL  localhost:3306  evaluacion_1  SQL > desc factura;
++--------------+----------+------+-----+---------+----------------+
+| Field        | Type     | Null | Key | Default | Extra          |
++--------------+----------+------+-----+---------+----------------+
+| No_Factura   | int(11)  | NO   | PRI | NULL    | auto_increment |
+| Fecha_Compra | datetime | YES  |     | NULL    |                |
+| no_cliente   | int(11)  | YES  | MUL | NULL    |                |
++--------------+----------+------+-----+---------+----------------+
+3 rows in set (0.0008 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > select * from cliente;
++------------+--------+----------+------+-----------+------------+------------+
+| no_cliente | nombre | apellido | RFC  | direccion | numero_tel | numero_cel |
++------------+--------+----------+------+-----------+------------+------------+
+|          5 | jose   | Perez    | NULL | NULL      | NULL       | NULL       |
++------------+--------+----------+------+-----------+------------+------------+
+1 row in set (0.0004 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > select * from factura;
++------------+---------------------+------------+
+| No_Factura | Fecha_Compra        | no_cliente |
++------------+---------------------+------------+
+|          3 | 2018-09-11 00:00:00 |          5 |
++------------+---------------------+------------+
+1 row in set (0.0003 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > update cliente set no_cliente = 3 where no_cliente = 5;
+Query OK, 1 row affected (0.0054 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+
+ MySQL  localhost:3306  evaluacion_1  SQL > select * from factura;
++------------+---------------------+------------+
+| No_Factura | Fecha_Compra        | no_cliente |
++------------+---------------------+------------+
+|          3 | 2018-09-11 00:00:00 |          3 |
++------------+---------------------+------------+
+1 row in set (0.0004 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL > select * from cliente;
++------------+--------+----------+------+-----------+------------+------------+
+| no_cliente | nombre | apellido | RFC  | direccion | numero_tel | numero_cel |
++------------+--------+----------+------+-----------+------------+------------+
+|          3 | jose   | Perez    | NULL | NULL      | NULL       | NULL       |
++------------+--------+----------+------+-----------+------------+------------+
+1 row in set (0.0007 sec)
+
+ MySQL  localhost:3306  evaluacion_1  SQL >
